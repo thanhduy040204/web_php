@@ -12,7 +12,7 @@ session_start();
   <link rel="stylesheet" href="style.css?v=1">
   <style>
     .about-banner {
-      background: url('images/banner1.jpg') center/cover no-repeat;
+      background: url('images/banner3.jpg') center/cover no-repeat;
       height: 400px;
       position: relative;
     }

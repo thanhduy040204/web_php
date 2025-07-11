@@ -8,11 +8,22 @@ if(!isset($_SESSION['admin'])){
   exit();
 }
 
+// Check id tồn tại
+if(isset($_GET['id']) && !empty($_GET['id'])){
+  $id = $_GET['id'];
+} else {
+  header("Location: dashboard.php");
+  exit();
+}
+
 // Get product info
-$id = $_GET['id'];
 $stmt = $conn->prepare("SELECT * FROM products WHERE id = ?");
 $stmt->execute([$id]);
 $product = $stmt->fetch(PDO::FETCH_ASSOC);
+if(!$product){
+  echo "<div class='alert alert-danger'>Không tìm thấy sản phẩm.</div>";
+  exit();
+}
 
 // Update product
 if(isset($_POST['update'])){
@@ -23,7 +34,7 @@ if(isset($_POST['update'])){
   // Handle image upload
   if($_FILES['image']['name']){
     $image = $_FILES['image']['name'];
-    move_uploaded_file($_FILES['image']['tmp_name'], "images/".$image); // Sửa đường dẫn đúng folder images
+    move_uploaded_file($_FILES['image']['tmp_name'], "images/".$image);
   } else {
     $image = $product['image'];
   }
@@ -32,7 +43,7 @@ if(isset($_POST['update'])){
   $stmt = $conn->prepare("UPDATE products SET name=?, price=?, description=?, image=? WHERE id=?");
   $stmt->execute([$name, $price, $desc, $image, $id]);
 
-  header("Location: dashboard.php");
+  header("Location: dashboard.php?success=Cập nhật sản phẩm thành công");
   exit();
 }
 ?>
@@ -45,7 +56,7 @@ if(isset($_POST['update'])){
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<div class="container mt-5">
+<div class="container mt-5" style="max-width: 600px;">
   <h2 class="text-success mb-4">✏️ Sửa sản phẩm</h2>
 
   <form method="post" enctype="multipart/form-data">
@@ -79,7 +90,6 @@ if(isset($_POST['update'])){
   </form>
 </div>
 
-<!-- JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

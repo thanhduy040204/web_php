@@ -16,7 +16,8 @@ if(isset($_POST['add'])){
 
   $stmt = $conn->prepare("INSERT INTO products (name, price, description, image) VALUES (?, ?, ?, ?)");
   $stmt->execute([$name, $price, $desc, $image]);
-  header("Location: dashboard.php");
+  header("Location: dashboard.php?success=Thêm sản phẩm thành công");
+  exit();
 }
 ?>
 <!DOCTYPE html>
@@ -24,30 +25,40 @@ if(isset($_POST['add'])){
 <head>
   <meta charset="UTF-8">
   <title>Thêm sản phẩm</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 <body>
-<div class="container mt-5">
-  <h2>Thêm sản phẩm</h2>
-  <form method="post" enctype="multipart/form-data">
-    <div class="mb-3">
-      <label>Tên</label>
-      <input type="text" name="name" class="form-control" required>
+<div class="container mt-5" style="max-width: 600px;">
+  <h2 class="text-success mb-4"><i class="bi bi-plus-circle"></i> Thêm sản phẩm mới</h2>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <form method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label class="form-label">Tên sản phẩm</label>
+          <input type="text" name="name" class="form-control" required placeholder="Nhập tên sản phẩm">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Giá</label>
+          <input type="number" name="price" class="form-control" required placeholder="Nhập giá sản phẩm">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Mô tả</label>
+          <textarea name="description" class="form-control" placeholder="Mô tả chi tiết sản phẩm"></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Ảnh sản phẩm</label>
+          <input type="file" name="image" class="form-control" required>
+        </div>
+        <button type="submit" name="add" class="btn btn-success"><i class="bi bi-save"></i> Lưu sản phẩm</button>
+        <a href="dashboard.php" class="btn btn-secondary">⬅ Quay lại Dashboard</a>
+      </form>
     </div>
-    <div class="mb-3">
-      <label>Giá</label>
-      <input type="number" name="price" class="form-control" required>
-    </div>
-    <div class="mb-3">
-      <label>Mô tả</label>
-      <textarea name="description" class="form-control"></textarea>
-    </div>
-    <div class="mb-3">
-      <label>Ảnh</label>
-      <input type="file" name="image" class="form-control" required>
-    </div>
-    <button type="submit" name="add" class="btn btn-success">Thêm</button>
-  </form>
+  </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
