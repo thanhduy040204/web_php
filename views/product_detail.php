@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'config.php';
+include '../config/config.php'; // Đường dẫn đúng tới config
 
 $product = null;
 
@@ -31,7 +31,7 @@ $rating_info = $stmt_rating->fetch(PDO::FETCH_ASSOC);
 $avg_rating = round($rating_info['avg_rating'],1);
 $total_reviews = $rating_info['total_reviews'];
 
-// Lấy sản phẩm liên quan cùng category
+// Sản phẩm liên quan
 $category = $product['category'];
 $stmt_related = $conn->prepare("SELECT * FROM products WHERE id != ? AND category = ? ORDER BY RAND() LIMIT 4");
 $stmt_related->execute([$id, $category]);
@@ -40,7 +40,7 @@ $stmt_related->execute([$id, $category]);
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title><?php echo $product ? $product['name'] : "Sản phẩm không tồn tại"; ?></title>
+  <title><?= $product ? $product['name'] : "Sản phẩm không tồn tại"; ?></title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -56,38 +56,31 @@ $stmt_related->execute([$id, $category]);
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php">Trang chủ</a></li>
-          <li class="breadcrumb-item active" aria-current="page"><?php echo $product['name']; ?></li>
+          <li class="breadcrumb-item active" aria-current="page"><?= $product['name']; ?></li>
         </ol>
       </nav>
 
+      <!-- Product Info -->
       <div class="card shadow-sm p-4 mb-5">
         <div class="row">
           <div class="col-md-6 mb-3">
-            <img src="images/<?php echo $product['image']; ?>" class="img-fluid product-image" alt="<?php echo $product['name']; ?>">
+            <img src="../assets/images/<?= $product['image']; ?>" class="img-fluid product-image" alt="<?= $product['name']; ?>">
           </div>
           <div class="col-md-6">
-            <h2 class="text-success mb-3"><i class="bi bi-box-seam"></i> <?php echo $product['name']; ?></h2>
-            <h4 class="text-danger mb-3"><?php echo number_format($product['price']); ?> VND</h4>
+            <h2 class="text-success mb-3"><i class="bi bi-box-seam"></i> <?= $product['name']; ?></h2>
+            <h4 class="text-danger mb-3"><?= number_format($product['price']); ?> VND</h4>
 
             <!-- Rating -->
             <div class="star-rating mb-3">
-              <?php
-              for($i=1; $i<=5; $i++){
-                if($i <= floor($avg_rating)){
-                  echo '<i class="bi bi-star-fill"></i>';
-                }elseif($i - $avg_rating < 1){
-                  echo '<i class="bi bi-star-half"></i>';
-                }else{
-                  echo '<i class="bi bi-star"></i>';
-                }
-              }
-              ?>
-              <span class="text-muted">(<?php echo $avg_rating; ?>/5 từ <?php echo $total_reviews; ?> đánh giá)</span>
+              <?php for($i=1; $i<=5; $i++): ?>
+                <?= $i <= floor($avg_rating) ? '<i class="bi bi-star-fill"></i>' : ($i - $avg_rating < 1 ? '<i class="bi bi-star-half"></i>' : '<i class="bi bi-star"></i>'); ?>
+              <?php endfor; ?>
+              <span class="text-muted">(<?= $avg_rating; ?>/5 từ <?= $total_reviews; ?> đánh giá)</span>
             </div>
 
-            <p class="mb-4"><?php echo nl2br($product['description']); ?></p>
+            <p class="mb-4"><?= nl2br($product['description']); ?></p>
 
-            <!-- Thông số kỹ thuật (demo) -->
+            <!-- Thông số kỹ thuật -->
             <h5>Thông số kỹ thuật</h5>
             <ul>
               <li>Xuất xứ: Việt Nam</li>
@@ -95,8 +88,9 @@ $stmt_related->execute([$id, $category]);
               <li>Loại: Trái cây tươi</li>
             </ul>
 
-            <form method="post" action="cart.php" class="d-flex">
-              <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
+            <!-- Thêm vào giỏ -->
+            <form method="post" action="../cart/cart.php" class="d-flex">
+              <input type="hidden" name="id" value="<?= $product['id']; ?>">
               <input type="hidden" name="quantity" value="1">
               <button type="submit" name="add_to_cart" class="btn btn-success btn-lg flex-fill">
                 <i class="bi bi-cart-plus"></i> Thêm vào giỏ hàng
@@ -114,19 +108,19 @@ $stmt_related->execute([$id, $category]);
         <?php while($related = $stmt_related->fetch(PDO::FETCH_ASSOC)): ?>
           <div class="col-6 col-md-3 mb-4">
             <div class="card h-100 shadow-sm">
-              <a href="product_detail.php?id=<?php echo $related['id']; ?>">
-                <img src="images/<?php echo $related['image']; ?>" class="card-img-top" style="height: 150px; object-fit: cover;">
+              <a href="product_detail.php?id=<?= $related['id']; ?>">
+                <img src="../assets/images/<?= $related['image']; ?>" class="card-img-top" style="height: 150px; object-fit: cover;">
               </a>
               <div class="card-body">
-                <h6 class="card-title"><?php echo $related['name']; ?></h6>
-                <p class="text-danger mb-0"><?php echo number_format($related['price']); ?> VND</p>
+                <h6 class="card-title"><?= $related['name']; ?></h6>
+                <p class="text-danger mb-0"><?= number_format($related['price']); ?> VND</p>
               </div>
             </div>
           </div>
         <?php endwhile; ?>
       </div>
 
-      <!-- Review Form -->
+      <!-- Form đánh giá -->
       <hr>
       <h5>Đánh giá sản phẩm</h5>
       <form method="post" class="mb-4">
@@ -152,7 +146,7 @@ $stmt_related->execute([$id, $category]);
         <button type="submit" name="submit_review" class="btn btn-primary">Gửi đánh giá</button>
       </form>
 
-      <!-- Danh sách review -->
+      <!-- Danh sách đánh giá -->
       <h5>⭐ Đánh giá từ khách hàng</h5>
       <?php
       $stmt_reviews = $conn->prepare("SELECT * FROM reviews WHERE product_id = ? ORDER BY created_at DESC");
@@ -160,21 +154,19 @@ $stmt_related->execute([$id, $category]);
       while($review = $stmt_reviews->fetch(PDO::FETCH_ASSOC)):
       ?>
         <div class="border rounded p-2 mb-2">
-          <strong><?php echo htmlspecialchars($review['user_name']); ?></strong>
+          <strong><?= htmlspecialchars($review['user_name']); ?></strong>
           <span class="text-warning">
-            <?php for($i=1; $i<=5; $i++){
-              echo $i <= $review['rating'] ? '<i class="bi bi-star-fill"></i>' : '<i class="bi bi-star"></i>';
-            } ?>
+            <?php for($i=1; $i<=5; $i++): ?>
+              <?= $i <= $review['rating'] ? '<i class="bi bi-star-fill"></i>' : '<i class="bi bi-star"></i>'; ?>
+            <?php endfor; ?>
           </span>
-          <p class="mb-0"><?php echo nl2br(htmlspecialchars($review['comment'])); ?></p>
-          <small class="text-muted"><?php echo $review['created_at']; ?></small>
+          <p class="mb-0"><?= nl2br(htmlspecialchars($review['comment'])); ?></p>
+          <small class="text-muted"><?= $review['created_at']; ?></small>
         </div>
       <?php endwhile; ?>
 
     <?php else: ?>
-      <div class="alert alert-danger">
-        Sản phẩm không tồn tại.
-      </div>
+      <div class="alert alert-danger">Sản phẩm không tồn tại.</div>
     <?php endif; ?>
   </div>
 

@@ -7,12 +7,14 @@ session_start();
   <meta charset="UTF-8">
   <title>Giới thiệu MorningFruit</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <!-- CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=1">
+  <link rel="stylesheet" href="../assets/css/style.css?v=1">
+
   <style>
     .about-banner {
-      background: url('images/banner3.jpg') center/cover no-repeat;
+      background: url('../assets/images/banner3.jpg') center/cover no-repeat;
       height: 400px;
       position: relative;
     }
@@ -22,9 +24,11 @@ session_start();
       font-size: 48px;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     }
+
     .about-section {
       padding: 60px 0;
     }
+
     .feature-icon {
       font-size: 40px;
       color: #28a745;
@@ -34,10 +38,11 @@ session_start();
 </head>
 <body>
 
-<?php include 'navbar.php'; ?>
+<?php include '../components/navbar.php'; ?>
 
 <!-- Banner -->
 <div class="about-banner"></div>
+
 <!-- About Title -->
 <div class="container mt-4 text-center">
   <h1 class="text-success fw-bold">Giới thiệu MorningFruit</h1>
@@ -81,7 +86,7 @@ session_start();
   </div>
 </div>
 
-<?php include 'footer.php'; ?>
+<?php include '../components/footer.php'; ?>
 
 <!-- JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

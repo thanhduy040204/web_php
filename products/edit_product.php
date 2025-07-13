@@ -1,10 +1,10 @@
 <?php
 session_start();
-include 'config.php';
+include '../config/config.php';
 
 // Check admin login
 if(!isset($_SESSION['admin'])){
-  header("Location: login.php");
+  header("Location: ../views/login.php");
   exit();
 }
 
@@ -12,7 +12,7 @@ if(!isset($_SESSION['admin'])){
 if(isset($_GET['id']) && !empty($_GET['id'])){
   $id = $_GET['id'];
 } else {
-  header("Location: dashboard.php");
+  header("Location: ../views/dashboard.php");
   exit();
 }
 
@@ -34,7 +34,7 @@ if(isset($_POST['update'])){
   // Handle image upload
   if($_FILES['image']['name']){
     $image = $_FILES['image']['name'];
-    move_uploaded_file($_FILES['image']['tmp_name'], "images/".$image);
+    move_uploaded_file($_FILES['image']['tmp_name'], "../assets/images/".$image);
   } else {
     $image = $product['image'];
   }
@@ -43,7 +43,7 @@ if(isset($_POST['update'])){
   $stmt = $conn->prepare("UPDATE products SET name=?, price=?, description=?, image=? WHERE id=?");
   $stmt->execute([$name, $price, $desc, $image, $id]);
 
-  header("Location: dashboard.php?success=Cập nhật sản phẩm thành công");
+  header("Location: ../views/dashboard.php?success=Cập nhật sản phẩm thành công");
   exit();
 }
 ?>
@@ -77,7 +77,7 @@ if(isset($_POST['update'])){
 
     <div class="mb-3">
       <label class="form-label">Ảnh hiện tại</label><br>
-      <img src="images/<?php echo $product['image']; ?>" alt="Ảnh sản phẩm" style="width:100px; height:100px; object-fit:cover;">
+      <img src="../assets/images/<?php echo $product['image']; ?>" alt="Ảnh sản phẩm" style="width:100px; height:100px; object-fit:cover;">
     </div>
 
     <div class="mb-3">
@@ -86,7 +86,7 @@ if(isset($_POST['update'])){
     </div>
 
     <button type="submit" name="update" class="btn btn-success">✅ Cập nhật</button>
-    <a href="dashboard.php" class="btn btn-secondary">⬅ Quay lại</a>
+    <a href="../views/dashboard.php" class="btn btn-secondary">⬅ Quay lại</a>
   </form>
 </div>
 

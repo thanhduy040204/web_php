@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'config.php';
+include '../config/config.php'; // chỉnh lại đúng đường dẫn
 
 // Check admin login
 if (!isset($_SESSION['admin'])) {
@@ -83,7 +83,7 @@ $totalPages = ceil($totalOrders / $limit);
 
   <div class="mb-3">
     <a href="revenue.php" class="btn btn-primary">💰 Xem thống kê doanh thu</a>
-    <a href="add_product.php" class="btn btn-success">➕ Thêm sản phẩm</a>
+    <a href="../products/add_product.php" class="btn btn-success">➕ Thêm sản phẩm</a>
     <a href="logout_admin.php" class="btn btn-secondary">🚪 Đăng xuất</a>
   </div>
 
@@ -101,12 +101,12 @@ $totalPages = ceil($totalOrders / $limit);
       <tbody>
         <?php foreach($products as $p): ?>
         <tr>
-          <td><img src="images/<?php echo $p['image']; ?>" style="width:50px; height:50px; object-fit:cover;"></td>
+          <td><img src="../assets/images/<?php echo $p['image']; ?>" style="width:50px; height:50px; object-fit:cover;"></td>
           <td class="text-start"><?php echo $p['name']; ?></td>
           <td><?php echo number_format($p['price']); ?> VND</td>
           <td>
-            <a href="edit_product.php?id=<?php echo $p['id']; ?>" class="btn btn-warning btn-sm">✏️ Sửa</a>
-            <a href="delete_product.php?id=<?php echo $p['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Bạn chắc chắn xoá?');">🗑️ Xoá</a>
+            <a href="../products/edit_product.php?id=<?php echo $p['id']; ?>" class="btn btn-warning btn-sm">✏️ Sửa</a>
+            <a href="../controllers/delete_product.php?id=<?php echo $p['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Bạn chắc chắn xoá?');">🗑️ Xoá</a>
           </td>
         </tr>
         <?php endforeach; ?>
@@ -165,11 +165,11 @@ $totalPages = ceil($totalOrders / $limit);
           <td><?= $row['status']; ?></td>
           <td><a href="order_detail.php?id=<?= $row['id']; ?>" class="btn btn-primary btn-sm">Xem</a></td>
           <td>
-            <a href="update_status.php?id=<?= $row['id']; ?>&status=Đã thanh toán" class="btn btn-success btn-sm mb-1">Xác nhận</a>
-            <a href="update_status.php?id=<?= $row['id']; ?>&status=Đã huỷ" class="btn btn-danger btn-sm mb-1">Huỷ</a>
+            <a href="../controllers/update_status.php?id=<?= $row['id']; ?>&status=Đã thanh toán" class="btn btn-success btn-sm mb-1">Xác nhận</a>
+            <a href="../controllers/update_status.php?id=<?= $row['id']; ?>&status=Đã huỷ" class="btn btn-danger btn-sm mb-1">Huỷ</a>
 
             <?php if ($row['status'] === 'Đã thanh toán'): ?>
-              <a href="export_pdf.php?id=<?= $row['id']; ?>" class="btn btn-secondary btn-sm">PDF</a>
+              <a href="../controllers/export_pdf.php?id=<?= $row['id']; ?>" class="btn btn-secondary btn-sm">PDF</a>
             <?php else: ?>
               <button class="btn btn-secondary btn-sm" disabled title="Chỉ in hoá đơn khi đã thanh toán">PDF</button>
             <?php endif; ?>

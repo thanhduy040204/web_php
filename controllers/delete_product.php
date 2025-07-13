@@ -1,10 +1,10 @@
 <?php
 session_start();
-include 'config.php';
+include '../config/config.php';
 
 // Check admin login
 if(!isset($_SESSION['admin'])){
-  header("Location: login.php");
+  header("Location: ../views/login.php");
   exit();
 }
 
@@ -15,6 +15,6 @@ $id = $_GET['id'];
 $stmt = $conn->prepare("DELETE FROM products WHERE id = ?");
 $stmt->execute([$id]);
 
-header("Location: dashboard.php");
+header("Location: ../views/dashboard.php");
 exit();
 ?>

@@ -1,6 +1,6 @@
 <?php
-require 'config.php';
-require __DIR__ . '/vendor/autoload.php'; // Autoload từ Composer
+require '../config/config.php';
+require '../vendor/autoload.php'; // Autoload từ Composer
 
 use Mpdf\Mpdf;
 

@@ -1,10 +1,10 @@
 <?php
 session_start();
-include 'config.php';
+include '../config/config.php'; // Đường dẫn đúng đến config.php
 
 // Kiểm tra admin login
 if(!isset($_SESSION['admin'])){
-  header("Location: login.php");
+  header("Location: login.php"); // Vì login.php nằm cùng thư mục 'views/'
   exit();
 }
 
@@ -12,7 +12,7 @@ if(!isset($_SESSION['admin'])){
 if(isset($_GET['id']) && !empty($_GET['id'])){
   $id = $_GET['id'];
 } else {
-  header("Location: orders.php");
+  header("Location: orders.php"); // Cũng nằm trong 'views/'
   exit();
 }
 

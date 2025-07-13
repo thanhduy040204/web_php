@@ -1,8 +1,8 @@
 <?php
 session_start();
-include 'config.php';
+include '../config/config.php';
 
-if(isset($_POST['login'])){
+if (isset($_POST['login'])) {
   $email = $_POST['email'];
   $password = $_POST['password'];
 
@@ -10,10 +10,10 @@ if(isset($_POST['login'])){
   $stmt->execute([$email]);
   $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-  if($user && password_verify($password, $user['password'])){
+  if ($user && password_verify($password, $user['password'])) {
     $_SESSION['user'] = $user['name'];
     header("Location: index.php");
-  }else{
+  } else {
     $error = "Email hoặc mật khẩu không đúng!";
   }
 }
@@ -23,12 +23,13 @@ if(isset($_POST['login'])){
 <head>
   <meta charset="UTF-8">
   <title>Đăng nhập</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container mt-5 col-md-4">
   <h2 class="text-center">Đăng nhập</h2>
-  <?php if(isset($error)) echo "<div class='alert alert-danger'>$error</div>"; ?>
+  <?php if (isset($error)) echo "<div class='alert alert-danger'>$error</div>"; ?>
   <form method="post">
     <div class="mb-3">
       <label>Email</label>

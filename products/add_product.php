@@ -1,9 +1,9 @@
 <?php
 session_start();
-include 'config.php';
+include '../config/config.php';
 
 if(!isset($_SESSION['admin'])){
-  header("Location: login.php");
+  header("Location: ../views/login.php");
   exit();
 }
 
@@ -12,11 +12,11 @@ if(isset($_POST['add'])){
   $price = $_POST['price'];
   $desc = $_POST['description'];
   $image = $_FILES['image']['name'];
-  move_uploaded_file($_FILES['image']['tmp_name'], "../images/".$image);
+  move_uploaded_file($_FILES['image']['tmp_name'], "../assets/images/".$image);
 
   $stmt = $conn->prepare("INSERT INTO products (name, price, description, image) VALUES (?, ?, ?, ?)");
   $stmt->execute([$name, $price, $desc, $image]);
-  header("Location: dashboard.php?success=Thêm sản phẩm thành công");
+  header("Location: ../views/dashboard.php?success=Thêm sản phẩm thành công");
   exit();
 }
 ?>
@@ -53,7 +53,7 @@ if(isset($_POST['add'])){
           <input type="file" name="image" class="form-control" required>
         </div>
         <button type="submit" name="add" class="btn btn-success"><i class="bi bi-save"></i> Lưu sản phẩm</button>
-        <a href="dashboard.php" class="btn btn-secondary">⬅ Quay lại Dashboard</a>
+        <a href="../views/dashboard.php" class="btn btn-secondary">⬅ Quay lại Dashboard</a>
       </form>
     </div>
   </div>

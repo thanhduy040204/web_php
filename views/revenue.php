@@ -1,10 +1,10 @@
 <?php
 session_start();
-include 'config.php';
+include '../config/config.php'; // cập nhật lại đường dẫn
 
 // Check admin login
 if(!isset($_SESSION['admin'])){
-  header("Location: login.php");
+  header("Location: login.php"); // giữ nguyên vì login.php cũng nằm trong views
   exit();
 }
 
