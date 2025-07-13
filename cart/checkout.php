@@ -33,6 +33,16 @@ if (isset($_POST['checkout'])) {
       $stmt->execute([$order_id, $id, $item['quantity'], $item['price']]);
     }
 
+    // Gửi email xác nhận đơn hàng
+    include '../controllers/send_email.php'; // Đảm bảo đường dẫn đúng
+
+    $toEmail = $_SESSION['user_email'] ?? ''; // Session này phải được set từ login_user.php
+    $toName = $name;
+    $orderItems = $_SESSION['cart'];
+    $totalPrice = $total;
+
+    sendOrderConfirmation($toEmail, $toName, $order_id, $orderItems, $totalPrice);
+
     unset($_SESSION['cart']);
     $success = "🎉 Đặt hàng thành công! Chúng tôi sẽ liên hệ bạn sớm.";
   }

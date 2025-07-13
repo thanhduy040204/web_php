@@ -11,17 +11,11 @@ include '../config/config.php';
 
   <!-- CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/style.css?v=2">
+  <link rel="stylesheet" href="../assets/css/style.css?v=3">
+
   <style>
-    .carousel-caption {
-      background: rgba(0,0,0,0.5);
-      padding: 20px;
-      border-radius: 10px;
-    }
     .product-card:hover {
       transform: scale(1.02);
       transition: all 0.3s ease;
@@ -52,19 +46,9 @@ include '../config/config.php';
   <div class="carousel-inner">
     <div class="carousel-item active">
       <img src="../assets/images/banner1.jpg" class="d-block w-100" alt="Banner 1" style="height: 400px; object-fit: cover;">
-      <div class="carousel-caption d-none d-md-block">
-        <h2 class="text-white">Trái cây tươi mỗi ngày</h2>
-        <p>Chất lượng - Nhanh chóng - An toàn</p>
-        <a href="#products" class="btn btn-success">Khám phá ngay</a>
-      </div>
     </div>
     <div class="carousel-item">
       <img src="../assets/images/banner2.jpg" class="d-block w-100" alt="Banner 2" style="height: 400px; object-fit: cover;">
-      <div class="carousel-caption d-none d-md-block">
-        <h2 class="text-white">Ưu đãi đặc biệt hôm nay</h2>
-        <p>Giảm giá lên đến 30% cho đơn hàng đầu tiên!</p>
-        <a href="#products" class="btn btn-warning">Mua ngay</a>
-      </div>
     </div>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
@@ -75,6 +59,13 @@ include '../config/config.php';
   </button>
 </div>
 <!-- End Slider -->
+
+<!-- Mô tả sau slider -->
+<div class="container text-center my-4">
+  <h2 class="text-success">Trái cây tươi mỗi ngày</h2>
+  <p>Chất lượng - Nhanh chóng - An toàn</p>
+  <a href="#products" class="btn btn-success">Khám phá ngay</a>
+</div>
 
 <!-- Products -->
 <div class="container mt-5" id="products">

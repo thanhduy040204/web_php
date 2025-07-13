@@ -12,6 +12,7 @@ if (isset($_POST['login'])) {
 
   if ($user && password_verify($password, $user['password'])) {
     $_SESSION['user'] = $user['name'];
+    $_SESSION['user_email'] = $user['email']; // ✅ Lưu thêm email để dùng khi gửi mail
     header("Location: index.php");
     exit();
   } else {
