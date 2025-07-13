@@ -61,3 +61,26 @@ h1 {
 .product-card:hover .overlay {
   opacity: 1;
 }
+.navbar .nav-link {
+  transition: all 0.2s;
+}
+.navbar .nav-link:hover {
+  color: #198754;
+  font-weight: 500;
+}
+.product-card {
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+.product-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+.btn-buy {
+  background-color: #ff6f00;
+  color: white;
+}
+.btn-buy:hover {
+  background-color: #e65c00;
+}
+
