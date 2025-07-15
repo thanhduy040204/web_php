@@ -73,12 +73,13 @@ if (isset($_POST['login'])) {
     </div>
     <button type="submit" name="login" class="btn btn-success w-100">Đăng nhập</button>
     <div class="text-center mt-3">
-      <small>Chưa có tài khoản? <a href="register.php">Đăng ký</a></small>
+      <small>Chưa có tài khoản? <a href="register.php">Đăng ký</a></small><br>
+      <small><a href="forgot_password.php">Quên mật khẩu?</a></small>
     </div>
   </form>
 </div>
 
-<!-- JS -->
+<!-- JS --> 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

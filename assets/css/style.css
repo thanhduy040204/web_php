@@ -84,3 +84,8 @@ h1 {
   background-color: #e65c00;
 }
 
+a.nav-link, p, h1, h2, h3, h4, h5 {
+  transition: color 0.3s ease;
+}
+
+
