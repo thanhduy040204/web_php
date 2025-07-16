@@ -104,7 +104,7 @@ function sendMessage(e) {
   } else if (msg.includes("đặt hàng") || msg.includes("mua")) {
     reply = "🛒 Bạn có thể đặt hàng tại trang sản phẩm và nhấn 'Thêm vào giỏ'.";
   } else if (msg.includes("liên hệ")) {
-    reply = "📞 Hotline: 0123 456 789\n📧 Email: contact@morningfruit.com.vn";
+    reply = "📞 Hotline: 0383764654\n📧 Email: tranthanhduy08699@gmail.com";
   }
 
   log.innerHTML += `<div><strong>Bot:</strong> ${reply}</div>`;
