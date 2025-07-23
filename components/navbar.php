@@ -17,7 +17,7 @@
           <a class="nav-link" href="about.php"><i class="bi bi-info-circle"></i> Giới thiệu</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/webphp/cart/cart.php"><i class="bi bi-cart3"></i> Giỏ hàng</a>
+          <a class="nav-link" href="/web_php/cart/cart.php"><i class="bi bi-cart3"></i> Giỏ hàng</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="contact.php"><i class="bi bi-telephone"></i> Liên hệ</a>
