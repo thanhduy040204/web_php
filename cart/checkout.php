@@ -73,7 +73,7 @@ if (isset($_POST['checkout'])) {
         <thead class="table-light">
           <tr>
             <th>Sản phẩm</th>
-            <th>Số lượng</th>
+            <th>Trọng lượng (kg)</th>
             <th>Giá</th>
             <th>Tổng</th>
           </tr>

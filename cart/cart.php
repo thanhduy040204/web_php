@@ -1,11 +1,11 @@
 <?php
 session_start();
-include '../config/config.php'; // đúng cấu trúc: file nằm trong cart/
+include '../config/config.php';
 
 // Thêm sản phẩm vào giỏ
 if (isset($_POST['add_to_cart'])) {
   $id = (int)$_POST['id'];
-  $quantity = (int)$_POST['quantity'];
+  $quantity = (float)$_POST['quantity'];
 
   if ($quantity <= 0) {
     header("Location: cart.php");
@@ -27,7 +27,6 @@ if (isset($_POST['add_to_cart'])) {
       ];
     }
   }
-  
 
   header("Location: cart.php");
   exit();
@@ -36,7 +35,7 @@ if (isset($_POST['add_to_cart'])) {
 // Cập nhật giỏ hàng
 if (isset($_POST['update_cart'])) {
   foreach ($_POST['quantity'] as $id => $qty) {
-    $qty = (int)$qty;
+    $qty = (float)$qty;
     if ($qty <= 0) {
       unset($_SESSION['cart'][$id]);
     } else {
@@ -92,7 +91,7 @@ if (isset($_GET['action']) && $_GET['action'] == "remove") {
             <td class="text-start"><?php echo htmlspecialchars($item['name']); ?></td>
             <td><?php echo number_format($item['price'], 0, ',', '.'); ?> VND</td>
             <td style="width:120px;">
-              <input type="number" name="quantity[<?php echo $id; ?>]" value="<?php echo $item['quantity']; ?>" min="1" class="form-control text-center">
+              <input type="number" name="quantity[<?php echo $id; ?>]" value="<?php echo $item['quantity']; ?>" min="0.1" step="0.1" class="form-control text-center">
             </td>
             <td><?php echo number_format($subtotal, 0, ',', '.'); ?> VND</td>
             <td><a href="cart.php?action=remove&id=<?php echo $id; ?>" class="btn btn-danger btn-sm">Xóa</a></td>

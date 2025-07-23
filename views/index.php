@@ -8,13 +8,10 @@ include '../config/config.php';
   <meta charset="UTF-8">
   <title>MorningFruit Shop</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/style.css?v=3">
-
   <style>
     .product-card:hover {
       transform: scale(1.02);
@@ -36,12 +33,10 @@ include '../config/config.php';
     }
   </style>
 </head>
-
 <body>
 
 <?php include '../components/navbar.php'; ?>
 
-<!-- Slider -->
 <div id="mainCarousel" class="carousel slide mt-5 pt-3" data-bs-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
@@ -58,16 +53,13 @@ include '../config/config.php';
     <span class="carousel-control-next-icon"></span>
   </button>
 </div>
-<!-- End Slider -->
 
-<!-- Mô tả sau slider -->
 <div class="container text-center my-4">
   <h2 class="text-success">Trái cây tươi mỗi ngày</h2>
   <p>Chất lượng - Nhanh chóng - An toàn</p>
   <a href="#products" class="btn btn-success">Khám phá ngay</a>
 </div>
 
-<!-- Products -->
 <div class="container mt-5" id="products">
   <h2 class="text-success text-center mb-4">Sản phẩm nổi bật</h2>
   <div class="row">
@@ -87,7 +79,7 @@ include '../config/config.php';
           <form method="post" action="../cart/cart.php" class="mt-auto">
             <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
             <div class="input-group mb-2">
-              <input type="number" name="quantity" value="1" min="1" class="form-control text-center" style="max-width: 70px;">
+              <input type="number" name="quantity" value="1" min="0.1" step="0.1" class="form-control text-center" style="max-width: 70px;">
               <button type="submit" name="add_to_cart" class="btn btn-buy"><i class="bi bi-cart-plus"></i></button>
             </div>
             <a href="product_detail.php?id=<?php echo $row['id']; ?>" class="btn btn-outline-success btn-sm w-100">Xem chi tiết</a>
@@ -98,11 +90,9 @@ include '../config/config.php';
     <?php } ?>
   </div>
 </div>
-<!-- End Products -->
 
 <?php include '../components/footer.php'; ?>
 
-<!-- JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
