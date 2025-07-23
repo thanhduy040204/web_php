@@ -25,7 +25,7 @@
     </div>
   <?php endif; ?>
 
-  <a href="/Web_php/views/index.php" class="btn btn-primary mt-3">⬅ Quay lại trang chủ</a>
+  <a href="/web_php/views/index.php" class="btn btn-primary mt-3">⬅ Quay lại trang chủ</a>
 
 </div>
 </body>
