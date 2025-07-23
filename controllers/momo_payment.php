@@ -12,8 +12,8 @@ $orderInfo = "Thanh toán qua MOMO - Demo";
 $amount = "10000"; // ❗ TODO: thay bằng $_SESSION['cart_total'] sau này
 $orderId = time() . "";
 $requestId = time() . "";
-$returnUrl = "http://localhost/Webphp/controllers/momo_return.php";
-$notifyUrl = "http://localhost/Webphp/controllers/momo_notify.php";
+$returnUrl = "http://localhost/Web_php/controllers/momo_return.php";
+$notifyUrl = "http://localhost/Web_php/controllers/momo_notify.php";
 $extraData = "";
 
 // ===== Tạo chữ ký (signature) =====
