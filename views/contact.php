@@ -114,7 +114,8 @@ function sendMessage(e) {
     "thanh toán": "💳 Có thể thanh toán khi nhận hàng, chuyển khoản hoặc qua ví MoMo.",
     "đặt hàng": "🛒 Vào trang sản phẩm, nhấn 'Thêm vào giỏ' và thanh toán.",
     "mua": "🛒 Vào trang sản phẩm, nhấn 'Thêm vào giỏ' và thanh toán.",
-    "liên hệ": "📞 Hotline: 0123 456 789 | 📧 Email: contact@morningfruit.com.vn"
+    "liên hệ": "📞 Hotline: 0123 456 789 | 📧 Email: contact@morningfruit.com.vn",
+    "chủ cửa hàng":"TRẦN THANH DUY"
   };
 
   for (const key in responses) {
