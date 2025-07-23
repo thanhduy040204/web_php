@@ -115,7 +115,7 @@ function sendMessage(e) {
     "đặt hàng": "🛒 Vào trang sản phẩm, nhấn 'Thêm vào giỏ' và thanh toán.",
     "mua": "🛒 Vào trang sản phẩm, nhấn 'Thêm vào giỏ' và thanh toán.",
     "liên hệ": "📞 Hotline: 0123 456 789 | 📧 Email: contact@morningfruit.com.vn",
-    "chủ cửa hàng":"TRẦN THANH DUY mập"
+    "chủ cửa hàng":"TRẦN THANH DUY"
 
   };
 
