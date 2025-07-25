@@ -49,34 +49,3 @@
     </div>
   </div>
 </nav>
-
-<!-- Dark/Light Toggle Script -->
-<script>
-  const toggleBtn = document.getElementById('toggle-theme');
-  const body = document.body;
-  const icon = document.getElementById('theme-icon');
-  const navbar = document.getElementById('mainNavbar');
-
-  function setTheme(mode) {
-    if (mode === 'dark') {
-      body.classList.add('bg-dark', 'text-light');
-      navbar.classList.replace('bg-white', 'bg-dark');
-      icon.classList.replace('bi-moon-stars', 'bi-sun');
-    } else {
-      body.classList.remove('bg-dark', 'text-light');
-      navbar.classList.replace('bg-dark', 'bg-white');
-      icon.classList.replace('bi-sun', 'bi-moon-stars');
-    }
-  }
-
-  // Load từ localStorage
-  const savedTheme = localStorage.getItem('theme') || 'light';
-  setTheme(savedTheme);
-
-  toggleBtn.addEventListener('click', () => {
-    const currentTheme = body.classList.contains('bg-dark') ? 'dark' : 'light';
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-  });
-</script>
