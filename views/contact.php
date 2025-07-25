@@ -24,7 +24,7 @@
     <!-- Thông tin -->
     <div class="col-md-6">
       <h1 class="text-success"><i class="bi bi-geo-alt-fill"></i> Liên hệ MorningFruit</h1>
-      <p><i class="bi bi-telephone-fill text-primary"></i> Hotline: <strong>0123 456 789</strong></p>
+      <p><i class="bi bi-telephone-fill text-primary"></i> Hotline: <strong>0896 672 664</strong></p>
       <p><i class="bi bi-geo-fill text-danger"></i> Địa chỉ: <strong>123 Đường ABC, Quận 1, TP.HCM</strong></p>
       <p><i class="bi bi-envelope-fill text-warning"></i> Email: <strong>contact@morningfruit.com.vn</strong></p>
     </div>
