@@ -16,6 +16,7 @@ try {
 } catch (PDOException $e) {
     // Lỗi kết nối: in ra thông báo dễ hiểu, không hiển thị thông tin nhạy cảm
     die("❌ Không thể kết nối CSDL. Vui lòng thử lại sau!");
+    
     // Hoặc: ghi log chi tiết $e->getMessage() vào file nếu cần
 }
 ?>

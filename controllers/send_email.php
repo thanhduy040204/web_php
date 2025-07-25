@@ -1,11 +1,12 @@
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\Exception;  
 
 require __DIR__ . '/../vendor/autoload.php'; // Đảm bảo đúng đường dẫn
 
 function sendOrderConfirmation($toEmail, $toName, $orderId, $orderItems, $totalPrice) {
     $mail = new PHPMailer(true);
+    $mail->CharSet = 'UTF-8';
 
     try {
         $mail->isSMTP();

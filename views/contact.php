@@ -24,8 +24,13 @@
     <!-- Thông tin -->
     <div class="col-md-6">
       <h1 class="text-success"><i class="bi bi-geo-alt-fill"></i> Liên hệ MorningFruit</h1>
+<<<<<<< HEAD
       <p><i class="bi bi-telephone-fill text-primary"></i> Hotline: <strong>0896 672 664</strong></p>
       <p><i class="bi bi-geo-fill text-danger"></i> Địa chỉ: <strong>123 Đường ABC, Quận 1, TP.HCM</strong></p>
+=======
+      <p><i class="bi bi-telephone-fill text-primary"></i> Hotline: <strong>0896672664</strong></p>
+      <p><i class="bi bi-geo-fill text-danger"></i> Địa chỉ: <strong>A12/358 ấp 1, xã Phong Phú, huyện Bình Chánh, TP.HCM </strong></p>
+>>>>>>> 9cf6b3738cd68084176c883d1e0901b042c80d26
       <p><i class="bi bi-envelope-fill text-warning"></i> Email: <strong>contact@morningfruit.com.vn</strong></p>
     </div>
 
@@ -67,6 +72,7 @@
           <li><a href="#" onclick="quickAsk('Giao hàng thế nào')">🚚 Giao hàng thế nào</a></li>
           <li><a href="#" onclick="quickAsk('Phí ship bao nhiêu')">💵 Phí ship bao nhiêu</a></li>
           <li><a href="#" onclick="quickAsk('Thanh toán thế nào')">💳 Thanh toán thế nào</a></li>
+          <li><a href="#" onclick="quickAsk('Thông tin cửa hàng')">ℹ️ Thông tin cửa hàng</a></li>
         </ul>
       </div>
     </div>
@@ -115,7 +121,8 @@ function sendMessage(e) {
     "đặt hàng": "🛒 Vào trang sản phẩm, nhấn 'Thêm vào giỏ' và thanh toán.",
     "mua": "🛒 Vào trang sản phẩm, nhấn 'Thêm vào giỏ' và thanh toán.",
     "liên hệ": "📞 Hotline: 0123 456 789 | 📧 Email: contact@morningfruit.com.vn",
-    "chủ cửa hàng":"TRẦN THANH DUY"
+    "chủ cửa hàng":"TRẦN THANH DUY",
+    "thông tin cửa hàng":"Cửa hàng MorningFruit được thành lập vào năm 2025 gồm 3 sinh viên Thanh Duy - Hoàng Văn - Phúc Vinh"
   };
 
   for (const key in responses) {
