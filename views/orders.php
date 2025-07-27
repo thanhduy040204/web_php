@@ -7,13 +7,14 @@ if (!isset($_SESSION['admin'])) {
   exit();
 }
 
-// Search & Filter
+// Lọc & tìm kiếm
 $status = $_GET['status'] ?? '';
 $search = $_GET['search'] ?? '';
 $page = $_GET['page'] ?? 1;
 $limit = 10;
 $start = ($page - 1) * $limit;
 
+// Truy vấn đơn hàng
 $query = "SELECT * FROM orders WHERE 1 ";
 $params = [];
 
@@ -32,10 +33,21 @@ $stmt = $conn->prepare($query);
 $stmt->execute($params);
 $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Count for pagination
+// ✅ Đếm tổng số đơn hàng (loại bỏ LIMIT)
 $countQuery = "SELECT COUNT(*) FROM orders WHERE 1 ";
-$countParams = $params;
-$countStmt = $conn->prepare(str_replace("SELECT *", "SELECT COUNT(*)", $query));
+$countParams = [];
+
+if ($status) {
+  $countQuery .= "AND status = ? ";
+  $countParams[] = $status;
+}
+if ($search) {
+  $countQuery .= "AND (customer_name LIKE ? OR customer_phone LIKE ?) ";
+  $countParams[] = "%$search%";
+  $countParams[] = "%$search%";
+}
+
+$countStmt = $conn->prepare($countQuery);
 $countStmt->execute($countParams);
 $total = $countStmt->fetchColumn();
 $total_pages = ceil($total / $limit);
@@ -49,11 +61,13 @@ $total_pages = ceil($total / $limit);
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 <body>
 <div class="container mt-5">
-  <h1 class="text-success mb-4"><i class="bi bi-box-seam"></i> Quản lý đơn hàng</h1>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-success"><i class="bi bi-box-seam"></i> Quản lý đơn hàng</h2>
+    <a href="dashboard.php?tab=orders" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Quay lại Dashboard</a>
+  </div>
 
   <!-- Bộ lọc -->
   <form method="get" class="row g-3 mb-3">
@@ -83,7 +97,6 @@ $total_pages = ceil($total / $limit);
       <thead class="table-success">
         <tr>
           <th>ID</th>
-          <th>User_ID</th>
           <th>Khách hàng</th>
           <th>SĐT</th>
           <th>Địa chỉ</th>
@@ -95,10 +108,9 @@ $total_pages = ceil($total / $limit);
         </tr>
       </thead>
       <tbody>
-        <?php foreach($orders as $row): ?>
+        <?php foreach ($orders as $row): ?>
         <tr>
           <td><?= $row['id']; ?></td>
-          <td><?= $row['user_id']; ?></td>
           <td><?= $row['customer_name']; ?></td>
           <td><?= $row['customer_phone']; ?></td>
           <td><?= $row['customer_address']; ?></td>
@@ -106,7 +118,7 @@ $total_pages = ceil($total / $limit);
           <td><?= $row['order_date']; ?></td>
           <td>
             <?php
-              $badge = match($row['status']) {
+              $badge = match ($row['status']) {
                 'Đã thanh toán' => 'success',
                 'Đã huỷ' => 'danger',
                 default => 'warning'
@@ -130,9 +142,16 @@ $total_pages = ceil($total / $limit);
   <nav>
     <ul class="pagination justify-content-center">
       <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-      <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
-        <a class="page-link" href="?page=<?= $i ?>&status=<?= urlencode($status) ?>&search=<?= urlencode($search) ?>"><?= $i ?></a>
-      </li>
+        <?php
+          $params = [
+            'page' => $i,
+            'status' => $status,
+            'search' => $search
+          ];
+        ?>
+        <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
+          <a class="page-link" href="?<?= http_build_query($params) ?>"><?= $i ?></a>
+        </li>
       <?php endfor; ?>
     </ul>
   </nav>
