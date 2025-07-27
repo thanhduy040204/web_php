@@ -1,6 +1,11 @@
 <?php
 session_start();
 include '../config/config.php';
+
+// Truy vấn danh sách khuyến mãi đang áp dụng
+$stmtPromo = $conn->prepare("SELECT * FROM promotions WHERE NOW() BETWEEN start_date AND end_date ORDER BY min_order_value ASC");
+$stmtPromo->execute();
+$promotions = $stmtPromo->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -37,6 +42,7 @@ include '../config/config.php';
 
 <?php include '../components/navbar.php'; ?>
 
+<!-- Carousel -->
 <div id="mainCarousel" class="carousel slide mt-5 pt-3" data-bs-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
@@ -54,12 +60,32 @@ include '../config/config.php';
   </button>
 </div>
 
+<!-- Khuyến mãi -->
+<?php if (!empty($promotions)): ?>
+<div class="container mt-4">
+  <div class="alert alert-warning shadow-sm">
+    <h5 class="mb-3"><i class="bi bi-megaphone-fill text-danger"></i> 🎁 Ưu đãi đang diễn ra:</h5>
+    <ul class="mb-0">
+      <?php foreach ($promotions as $promo): ?>
+        <li>
+          <strong><?php echo htmlspecialchars($promo['name']); ?></strong>
+          – Áp dụng cho đơn từ <span class="text-primary"><?php echo number_format($promo['min_order_value'], 0, ',', '.'); ?> VND</span>
+          (Từ <?php echo date('d/m/Y', strtotime($promo['start_date'])); ?> đến <?php echo date('d/m/Y', strtotime($promo['end_date'])); ?>)
+        </li>
+      <?php endforeach; ?>
+    </ul>
+  </div>
+</div>
+<?php endif; ?>
+
+<!-- Giới thiệu -->
 <div class="container text-center my-4">
   <h2 class="text-success">Trái cây tươi mỗi ngày</h2>
   <p>Chất lượng - Nhanh chóng - An toàn</p>
   <a href="#products" class="btn btn-success">Khám phá ngay</a>
 </div>
 
+<!-- Sản phẩm -->
 <div class="container mt-5" id="products">
   <h2 class="text-success text-center mb-4">Sản phẩm nổi bật</h2>
   <div class="row">
