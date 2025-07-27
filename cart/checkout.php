@@ -13,6 +13,7 @@ if (empty($_SESSION['cart'])) {
 
 $errors = [];
 $promotion = null;
+$success = null;
 
 if (isset($_POST['checkout'])) {
   $name = trim($_POST['name']);
@@ -75,3 +76,106 @@ if (isset($_POST['checkout'])) {
   }
 }
 ?>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Thanh toán</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container my-5">
+  <h2 class="text-success mb-4 text-center">🛒 Thanh toán đơn hàng</h2>
+
+  <?php if ($success): ?>
+    <div class="alert alert-success"><?php echo $success; ?></div>
+    <a href="../views/index.php" class="btn btn-primary">Tiếp tục mua sắm</a>
+  <?php else: ?>
+
+    <?php if (!empty($errors)): ?>
+      <div class="alert alert-danger">
+        <ul>
+          <?php foreach ($errors as $e): ?>
+            <li><?php echo $e; ?></li>
+          <?php endforeach; ?>
+        </ul>
+      </div>
+    <?php endif; ?>
+
+    <form method="post">
+      <div class="row">
+        <div class="col-md-6">
+          <h5>📦 Thông tin giao hàng</h5>
+          <div class="mb-3">
+            <label class="form-label">👤 Họ tên</label>
+            <input type="text" name="name" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">📞 Số điện thoại</label>
+            <input type="text" name="phone" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">🏠 Địa chỉ</label>
+            <textarea name="address" class="form-control" required></textarea>
+          </div>
+          <button type="submit" name="checkout" class="btn btn-success w-100">✅ Đặt hàng</button>
+        </div>
+
+        <div class="col-md-6">
+          <h5>🧾 Đơn hàng của bạn</h5>
+          <table class="table table-bordered text-center align-middle">
+            <thead class="table-light">
+              <tr>
+                <th>Sản phẩm</th>
+                <th>Số lượng</th>
+                <th>Giá</th>
+                <th>Tổng</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              $total = 0;
+              foreach ($_SESSION['cart'] as $item) {
+                $subtotal = $item['price'] * $item['quantity'];
+                $total += $subtotal;
+                echo "<tr>
+                  <td>{$item['name']}</td>
+                  <td>{$item['quantity']}</td>
+                  <td>" . number_format($item['price'], 0, ',', '.') . " VND</td>
+                  <td>" . number_format($subtotal, 0, ',', '.') . " VND</td>
+                </tr>";
+              }
+
+              $discount = 0;
+              if ($promotion) {
+                if ($promotion['discount_type'] === 'percent') {
+                  $discount = $total * ($promotion['discount_value'] / 100);
+                } else {
+                  $discount = $promotion['discount_value'];
+                }
+              }
+              $finalTotal = $total - $discount;
+              ?>
+              <tr>
+                <td colspan="3" class="text-end fw-bold">Tổng cộng</td>
+                <td class="fw-bold text-danger"><?php echo number_format($total, 0, ',', '.'); ?> VND</td>
+              </tr>
+              <?php if ($promotion): ?>
+              <tr>
+                <td colspan="3" class="text-end fw-bold text-success">Khuyến mãi: <?php echo $promotion['name']; ?></td>
+                <td class="text-success">- <?php echo number_format($discount, 0, ',', '.'); ?> VND</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="text-end fw-bold">Tổng sau giảm</td>
+                <td class="fw-bold text-danger"><?php echo number_format($finalTotal, 0, ',', '.'); ?> VND</td>
+              </tr>
+              <?php endif; ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </form>
+  <?php endif; ?>
+</div>
+</body>
+</html>
