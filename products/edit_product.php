@@ -26,6 +26,7 @@ if(isset($_POST['update'])){
   $name = $_POST['name'];
   $price = $_POST['price'];
   $desc = $_POST['description'];
+  $stock = $_POST['quantity_in_stock'];
 
   if($_FILES['image']['name']){
     $image = $_FILES['image']['name'];
@@ -34,8 +35,8 @@ if(isset($_POST['update'])){
     $image = $product['image'];
   }
 
-  $stmt = $conn->prepare("UPDATE products SET name=?, price=?, description=?, image=? WHERE id=?");
-  $stmt->execute([$name, $price, $desc, $image, $id]);
+  $stmt = $conn->prepare("UPDATE products SET name=?, price=?, description=?, image=?, quantity_in_stock=? WHERE id=?");
+  $stmt->execute([$name, $price, $desc, $image, $stock, $id]);
 
   header("Location: ../views/dashboard.php?success=Cập nhật sản phẩm thành công");
   exit();
@@ -75,6 +76,11 @@ if(isset($_POST['update'])){
         <div class="mb-3">
           <label class="form-label">Giá</label>
           <input type="number" name="price" class="form-control" required value="<?= $product['price']; ?>">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Tồn kho (kg)</label>
+          <input type="number" name="quantity_in_stock" step="0.1" class="form-control" required value="<?= $product['quantity_in_stock']; ?>">
         </div>
 
         <div class="mb-3">
