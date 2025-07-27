@@ -28,12 +28,23 @@ if ($search) {
   $params[] = "%$search%";
 }
 
-$query .= "ORDER BY id DESC LIMIT $start, $limit";
+// 👉 Ưu tiên tên bắt đầu bằng từ khóa, rồi mới đến tên chứa từ khóa
+$query .= "ORDER BY 
+  CASE 
+    WHEN customer_name LIKE ? THEN 0
+    WHEN customer_name LIKE ? THEN 1
+    ELSE 2
+  END, id DESC 
+  LIMIT $start, $limit";
+
+$params[] = "$search%";
+$params[] = "%$search%";
+
 $stmt = $conn->prepare($query);
 $stmt->execute($params);
 $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// ✅ Đếm tổng số đơn hàng (loại bỏ LIMIT)
+// ✅ Đếm tổng số đơn hàng (không cần sắp xếp)
 $countQuery = "SELECT COUNT(*) FROM orders WHERE 1 ";
 $countParams = [];
 
