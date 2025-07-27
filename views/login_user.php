@@ -1,4 +1,8 @@
 <?php
+
+ini_set('session.cookie_lifetime', 0); // Session tự huỷ khi trình duyệt đóng
+ini_set('session.gc_maxlifetime', 0);
+
 session_start();
 include '../config/config.php';
 
@@ -12,7 +16,7 @@ if (isset($_POST['login'])) {
 
   if ($user && password_verify($password, $user['password'])) {
     $_SESSION['user'] = $user['name'];
-    $_SESSION['user_email'] = $user['email']; // ✅ Lưu thêm email để dùng khi gửi mail
+    $_SESSION['user_email'] = $user['email']; // ✅ Lưu email để dùng khi gửi mail
     header("Location: index.php");
     exit();
   } else {
@@ -79,7 +83,6 @@ if (isset($_POST['login'])) {
   </form>
 </div>
 
-<!-- JS --> 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

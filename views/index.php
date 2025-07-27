@@ -1,5 +1,14 @@
 <?php
+
+ini_set('session.cookie_lifetime', 0); // Session bị xoá khi trình duyệt tắt
+ini_set('session.gc_maxlifetime', 0);  // Session tự hủy sau khi tắt trình duyệt
+
 session_start();
+if (!isset($_SESSION['user'])) {
+  header("Location: login_user.php");
+  exit();
+}
+
 include '../config/config.php';
 
 // Truy vấn danh sách khuyến mãi đang áp dụng
