@@ -68,15 +68,13 @@ session_start();
 
 <?php include '../components/navbar.php'; ?>
 
-<!-- Banner -->
+
 <div class="about-banner"></div>
 
-<!-- Breadcrumb + Title -->
 <div class="container">
   <h1 class="text-center page-title" data-aos="fade-down">Giới thiệu MorningFruit</h1>
 </div>
 
-<!-- Carousel ảnh thực tế -->
 <div class="container mb-5" data-aos="fade-up">
   <div id="carouselExampleIndicators" class="carousel slide shadow-sm rounded" data-bs-ride="carousel">
     <div class="carousel-inner">
@@ -99,7 +97,7 @@ session_start();
   </div>
 </div>
 
-<!-- Intro 2 cột -->
+
 <div class="container mb-5">
   <div class="row align-items-center g-5 two-col-section">
     <div class="col-md-6" data-aos="fade-right">
@@ -119,7 +117,7 @@ session_start();
   </div>
 </div>
 
-<!-- Mission -->
+
 <div class="container mb-5">
   <div class="row justify-content-center">
     <div class="col-md-10" data-aos="fade-up">
@@ -131,7 +129,7 @@ session_start();
   </div>
 </div>
 
-<!-- Optional: Video -->
+
 <div class="container mb-5" data-aos="fade-up">
   <div class="ratio ratio-16x9 rounded shadow-sm">
     <iframe src="https://www.youtube.com/embed/SvuifZ1BDS4" title="Video giới thiệu MorningFruit" allowfullscreen></iframe>
@@ -140,7 +138,7 @@ session_start();
 
 <?php include '../components/footer.php'; ?>
 
-<!-- JS -->
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
